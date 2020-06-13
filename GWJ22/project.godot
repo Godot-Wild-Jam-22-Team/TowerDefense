@@ -8,14 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Control",
+"class": "StartScreen",
+"language": "GDScript",
+"path": "res://GUI/StartScreen.gd"
+} ]
 _global_script_class_icons={
-
+"StartScreen": ""
 }
 
 [application]
 
 config/name="GWJ22"
+run/main_scene="res://GUI/StartScreen.tscn"
 config/icon="res://icon.png"
 
 [rendering]
