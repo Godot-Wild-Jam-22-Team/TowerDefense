@@ -6,6 +6,7 @@ signal closed
 
 func _ready() -> void:
 	set_process_input(false)
+	visible = false
 
 func open() -> void:
 	set_process_input(true)
