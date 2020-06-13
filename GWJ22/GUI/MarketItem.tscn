@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Sprites/draggable_icon_placeholder.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=2]
+[ext_resource path="res://GUI/MarketItem.gd" type="Script" id=3]
+
+[node name="MarketItem" type="Button"]
+margin_top = 32.0
+margin_right = 160.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 120, 100 )
+size_flags_vertical = 0
+theme = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -28.0
+margin_right = 40.0
+margin_bottom = 36.0
+texture = ExtResource( 1 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 8.0
+margin_bottom = 30.0
+text = "Gun Turret"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PriceLabel" type="Label" parent="."]
+anchor_left = 0.953125
+anchor_top = 1.02
+anchor_right = 0.953125
+anchor_bottom = 1.02
+margin_left = -54.5
+margin_top = -28.64
+margin_right = 3.5
+margin_bottom = -6.64
+text = "500$"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_down" from="." to="." method="_on_MarketItem_button_down"]
