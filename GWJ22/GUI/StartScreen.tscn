@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Fonts/Title_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=2]
+
+[node name="StartScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.078
+anchor_top = 0.267
+anchor_right = 0.906
+anchor_bottom = 0.427
+margin_left = 64.128
+margin_top = 15.8
+margin_right = -52.744
+margin_bottom = -11.2
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Tower Defense"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchor_left = 0.281
+anchor_top = 0.533
+anchor_right = 0.719
+anchor_bottom = 1.0
+margin_left = 154.256
+margin_top = -15.8
+margin_right = -156.256
+margin_bottom = -56.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="Buttons"]
+margin_right = 138.0
+margin_bottom = 28.0
+text = "Start"
+
+[node name="CreditButton" type="Button" parent="Buttons"]
+margin_top = 32.0
+margin_right = 138.0
+margin_bottom = 60.0
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="Buttons"]
+margin_top = 64.0
+margin_right = 138.0
+margin_bottom = 92.0
+text = "Quit"
