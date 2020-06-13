@@ -1,10 +1,6 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
+onready var pause_menu := $PauseScreen/PauseMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,8 +8,13 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
+		get_tree().set_input_as_handled()
+		pause_menu.open()
+		set_process_input(false)
 		get_tree().paused = true
-		pass
+		yield(pause_menu, "closed")
+		set_process_input(true)
+		get_tree().paused = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -72,3 +72,5 @@ margin_right = 200.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 200, 38 )
 text = "Quit"
+[connection signal="pressed" from="PauseScreen/PauseMenu/VBoxContainer/ResumeButton" to="PauseScreen/PauseMenu" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="PauseScreen/PauseMenu/VBoxContainer/QuitButton" to="PauseScreen/PauseMenu" method="_on_QuitButton_pressed"]
