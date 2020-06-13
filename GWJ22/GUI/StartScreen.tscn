@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Fonts/Title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=2]
+[ext_resource path="res://GUI/StartScreen.gd" type="Script" id=3]
 
 [node name="StartScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,13 +50,90 @@ margin_bottom = 28.0
 text = "Start"
 
 [node name="CreditButton" type="Button" parent="Buttons"]
-margin_top = 32.0
+margin_top = 44.0
 margin_right = 138.0
-margin_bottom = 60.0
+margin_bottom = 72.0
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="Buttons"]
-margin_top = 64.0
+margin_top = 88.0
 margin_right = 138.0
-margin_bottom = 92.0
+margin_bottom = 116.0
 text = "Quit"
+
+[node name="CreditsPanel" type="PopupPanel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.0
+margin_top = -252.0
+margin_right = 174.0
+margin_bottom = 248.0
+rect_min_size = Vector2( 350, 500 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CreditsPanel"]
+anchor_left = 0.046
+anchor_top = 0.064
+anchor_right = 0.96
+anchor_bottom = 0.96
+margin_left = -0.100002
+margin_top = -3.8147e-06
+margin_right = -3.05176e-05
+margin_bottom = -6.10352e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CreditsPanel/Control"]
+anchor_left = 0.362
+anchor_right = 0.637
+anchor_bottom = 0.049
+margin_left = 0.159996
+margin_right = 0.159988
+margin_bottom = 0.0479984
+text = "Credits"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 17.0
+margin_top = 48.0
+margin_right = -12.0
+margin_bottom = -64.0
+text = "
+Visuals: 
+Saba, Xae XII, Oscar Barroso
+
+Programming: 
+Joel, Zoidberg, Aesprite
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DismissCreditsButton" type="Button" parent="CreditsPanel/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -47.0
+margin_top = -48.0
+margin_right = 50.0
+margin_bottom = -20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Dismiss"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Buttons/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="Buttons/CreditButton" to="." method="_toggle_credits_panel"]
+[connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CreditsPanel/Control/DismissCreditsButton" to="." method="_toggle_credits_panel"]
