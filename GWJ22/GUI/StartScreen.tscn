@@ -32,33 +32,35 @@ __meta__ = {
 }
 
 [node name="Buttons" type="VBoxContainer" parent="."]
-anchor_left = 0.281
-anchor_top = 0.533
-anchor_right = 0.719
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 154.256
-margin_top = -15.8
-margin_right = -156.256
-margin_bottom = -56.0
+margin_left = -100.0
+margin_top = 300.0
+margin_right = 100.0
+margin_bottom = -104.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StartButton" type="Button" parent="Buttons"]
-margin_right = 138.0
-margin_bottom = 28.0
+margin_right = 200.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 200, 38 )
 text = "Start"
 
 [node name="CreditButton" type="Button" parent="Buttons"]
-margin_top = 44.0
-margin_right = 138.0
-margin_bottom = 72.0
+margin_top = 54.0
+margin_right = 200.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 38 )
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="Buttons"]
-margin_top = 88.0
-margin_right = 138.0
-margin_bottom = 116.0
+margin_top = 108.0
+margin_right = 200.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 200, 38 )
 text = "Quit"
 
 [node name="CreditsPanel" type="PopupPanel" parent="."]
@@ -80,10 +82,10 @@ anchor_left = 0.046
 anchor_top = 0.064
 anchor_right = 0.96
 anchor_bottom = 0.96
-margin_left = -0.100002
-margin_top = -3.8147e-06
-margin_right = -3.05176e-05
-margin_bottom = -6.10352e-05
+margin_left = -12.1
+margin_top = -28.0
+margin_right = 10.0
+margin_bottom = 16.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

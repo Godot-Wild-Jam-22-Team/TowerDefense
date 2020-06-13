@@ -9,13 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "DraggableObject",
+"language": "GDScript",
+"path": "res://Defenses/DraggableObject.gd"
+}, {
 "base": "Control",
 "class": "StartScreen",
 "language": "GDScript",
 "path": "res://GUI/StartScreen.gd"
+}, {
+"base": "DraggableObject",
+"class": "Turret",
+"language": "GDScript",
+"path": "res://Defenses/Turret.gd"
 } ]
 _global_script_class_icons={
-"StartScreen": ""
+"DraggableObject": "",
+"StartScreen": "",
+"Turret": ""
 }
 
 [application]
@@ -23,6 +35,24 @@ _global_script_class_icons={
 config/name="GWJ22"
 run/main_scene="res://GUI/StartScreen.tscn"
 config/icon="res://icon.png"
+
+[input]
+
+main_click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+secondary_click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [rendering]
 
