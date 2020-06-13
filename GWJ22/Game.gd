@@ -1,9 +1,10 @@
 extends Node
 
 onready var pause_menu := $PauseScreen/PauseMenu
-
+onready var marketplace := $MarketLayer/Marketplace
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	marketplace.connect("instance_item", self, "add_defense")
 	pass # Replace with function body.
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -16,6 +17,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_process_input(true)
 		get_tree().paused = false
 
+func add_defense(item_scene: PackedScene) -> void:
+	var new_defense = item_scene.instance()
+	$Defenses.add_child(new_defense)
+	new_defense.initialize($Navigation2D.get_global_mouse_position(), true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
