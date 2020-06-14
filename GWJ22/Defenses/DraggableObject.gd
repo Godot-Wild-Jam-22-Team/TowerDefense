@@ -1,67 +1,72 @@
 extends Area2D
 class_name DraggableObject
 
-signal dropped(object)
+signal dropped(object, price)
+
+export (bool) var REPOSITIONABLE := true
 
 var start_position := Vector2.ZERO #used in case of cancel purchase animation
+var previous_position := Vector2.ZERO
 
-var grabbed := false setget set_grabbed
-var droppable := true setget set_droppable
+var _grabbed := false setget _set_grabbed
+var _droppable := true setget _set_droppable
 
 var flashing_colors := [Color.white, Color.crimson]
 
-var price := 500.0
+var price := 500.0 #set to 0 after first placement
 
 func _ready() -> void:
 	pass #do not mess with process as it may be used by children
 
 func initialize(position: Vector2, grab : bool = true) -> void:
+	self._grabbed = grab
+	start_position = position
 	global_position = position
-	self.grabbed = grab
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("main_click"):
-		self.grabbed = true
+		self._grabbed = true
 	elif event.is_action_pressed("secondary_click"):
 		rotation_degrees += 90
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_released("main_click") and droppable:
-		self.grabbed = false
-	if grabbed:
+	if _grabbed:
 		global_position = get_global_mouse_position()
+		if Input.is_action_just_released("main_click"):
+			if not _droppable:
+				$ErrorSound.play()
+				adjust_position(previous_position)
+			self._grabbed = false
+	
 
-func set_grabbed(value: bool) -> void:
-	grabbed = value
-	if grabbed:
+func _set_grabbed(value: bool) -> void:
+	_grabbed = value
+	if _grabbed:
 		raise()
 	else:
 		$DropSound.play()
-		emit_signal("dropped", self)
+		emit_signal("dropped", self, price)
+		price = 0.0 #after first placement, do not pay
 
 func adjust_position(end_position: Vector2) -> void:
-	# used to center in tile with pixel precision
-	pass
-
-func cancel_purchase() -> void:
-	$ErrorSound.play()
-	
-	# when there are no enough money animate to report not buyable
+	var duration = 2.0
+	$Tween.interpolate_property(self, "global_position",
+	global_position, end_position, duration, Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	pass
 
 # Manage collisions while dragging
 
-func _on_DraggableObject_area_entered(area: Area2D) -> void:
-	self.droppable = false
+func _on_DraggableObject_area_entered(_area: Area2D) -> void:
+	self._droppable = false
 
-func _on_DraggableObject_area_exited(area: Area2D) -> void:
-	self.droppable = true
+func _on_DraggableObject_area_exited(_area: Area2D) -> void:
+	self._droppable = true
 
-func set_droppable(value: bool) -> void:
-	droppable = value
-	if not grabbed:
+func _set_droppable(value: bool) -> void:
+	_droppable = value
+	if not _grabbed:
 		return
-	if droppable:
+	if _droppable:
 		$Tween.stop_all()
 		$Placeholder.modulate = Color.white
 		$Sprite.modulate = Color.white
@@ -80,6 +85,10 @@ func _start_tween():
 	$Tween.start()
 
 func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
-	if key == ":modulate":
+	#print("Object %s, key %s" % [object, key])
+	if object == self: #adjust position
+		if previous_position == start_position:
+			queue_free()
+	if key == ":modulate": #flashing color
 		flashing_colors.invert()
 		_start_tween()
