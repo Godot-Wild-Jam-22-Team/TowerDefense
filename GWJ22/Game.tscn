@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GUI/Marketplace.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Defenses/Turrets/Turret.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -18,6 +19,9 @@ pause_mode = 1
 [node name="Defenses" type="Node" parent="."]
 pause_mode = 1
 
+[node name="Turret" parent="Defenses" instance=ExtResource( 4 )]
+position = Vector2( 428.16, 207.636 )
+
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="PauseScreen" instance=ExtResource( 2 )]
@@ -25,3 +29,4 @@ pause_mode = 1
 [node name="MarketLayer" type="CanvasLayer" parent="."]
 
 [node name="Marketplace" parent="MarketLayer" instance=ExtResource( 3 )]
+[connection signal="shoot" from="Defenses/Turret" to="." method="_on_Turret_shoot"]

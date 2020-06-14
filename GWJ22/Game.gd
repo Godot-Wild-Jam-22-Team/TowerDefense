@@ -22,6 +22,15 @@ func add_defense(item_scene: PackedScene) -> void:
 	$Defenses.add_child(new_defense)
 	new_defense.initialize($Navigation2D.get_global_mouse_position(), true)
 
+func _on_Turret_shoot(bullet, _position, _direction):
+	var b = bullet.instance()
+	add_child(b)
+	b.start(_position, _direction)
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
+
+
+
