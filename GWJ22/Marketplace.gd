@@ -22,7 +22,6 @@ func buy_item(item_scene: PackedScene) -> void:
 	#check price and available money
 	#if ok, emit signal to instatiate scene in game
 	emit_signal("instance_item", item_scene)
-	print ("Market buy action")
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

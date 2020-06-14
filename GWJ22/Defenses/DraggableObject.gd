@@ -17,16 +17,21 @@ func initialize(position: Vector2, grab : bool = true) -> void:
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("main_click"):
 		self.grabbed = true
-	elif event.is_action_released("main_click"):
-		self.grabbed = false
+#	elif event.is_action_released("main_click"):
+#		self.grabbed = false
 	elif event.is_action_pressed("secondary_click"):
 		rotation_degrees += 90
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_released("main_click"):
+		self.grabbed = false
 	if grabbed:
 		global_position = get_global_mouse_position()
 
 func set_grabbed(value: bool) -> void:
 	grabbed = value
 	if grabbed:
+		print("Grabbing")
 		emit_signal("grabbed_object")
+	else:
+		print("Dropping")
