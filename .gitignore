@@ -3,6 +3,11 @@
 
 ### Godot ###
 
+# HTML export folder and zip
+TowerDefenseWeb/
+TowerDefenseWeb.zip
+
+
 # Godot-specific ignores
 .import/
 export.cfg
