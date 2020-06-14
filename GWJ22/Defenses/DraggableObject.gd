@@ -21,7 +21,8 @@ func _ready() -> void:
 func initialize(position: Vector2, grab : bool = true) -> void:
 	self._grabbed = grab
 	start_position = position
-	global_position = position
+	previous_position = start_position #same at the beginning
+	global_position = start_position
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("main_click"):
@@ -42,6 +43,7 @@ func _process(_delta: float) -> void:
 func _set_grabbed(value: bool) -> void:
 	_grabbed = value
 	if _grabbed:
+		previous_position = global_position
 		raise()
 	else:
 		$DropSound.play()
@@ -67,11 +69,14 @@ func _set_droppable(value: bool) -> void:
 	if not _grabbed:
 		return
 	if _droppable:
-		$Tween.stop_all()
-		$Placeholder.modulate = Color.white
-		$Sprite.modulate = Color.white
+		_reset_flash()
 	else:
 		_start_tween()
+
+func _reset_flash() -> void:
+	$Tween.stop_all()
+	$Placeholder.modulate = Color.white
+	$Sprite.modulate = Color.white
 
 func _start_tween():
 	$Tween.interpolate_property(
@@ -89,6 +94,8 @@ func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
 	if object == self: #adjust position
 		if previous_position == start_position:
 			queue_free()
+		else:
+			_reset_flash()
 	if key == ":modulate": #flashing color
 		flashing_colors.invert()
 		_start_tween()
