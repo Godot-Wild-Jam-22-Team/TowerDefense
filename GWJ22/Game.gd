@@ -22,6 +22,11 @@ func add_defense(item_scene: PackedScene) -> void:
 	$Defenses.add_child(new_defense)
 	new_defense.initialize($Navigation2D.get_global_mouse_position(), true)
 
+func _on_Turret_created(vision, _position, _direction):
+	var v = vision.instance()
+	add_child(v)
+	v.start(_position, _direction)
+
 func _on_Turret_shoot(bullet, _position, _direction):
 	var b = bullet.instance()
 	add_child(b)

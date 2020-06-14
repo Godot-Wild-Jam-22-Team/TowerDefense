@@ -20,7 +20,7 @@ pause_mode = 1
 pause_mode = 1
 
 [node name="Turret" parent="Defenses" instance=ExtResource( 4 )]
-position = Vector2( 428.16, 207.636 )
+position = Vector2( 446.775, 491.167 )
 
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 
