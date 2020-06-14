@@ -1,16 +1,33 @@
 extends Control
+class_name PauseMenu
 
+signal open
+signal closed
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	set_process_input(false)
+	visible = false
+
+func open() -> void:
+	set_process_input(true)
+	emit_signal("open")
+	show()
+
+func close() -> void:
+	emit_signal("closed")
+	set_process_input(false)
+	hide()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		close() 
+		#ISSUE called correctly but not working as with button
+
+func _on_ResumeButton_pressed() -> void:
+	close()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _on_QuitButton_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene("res://GUI/StartScreen.tscn")
+	#get_tree().quit()

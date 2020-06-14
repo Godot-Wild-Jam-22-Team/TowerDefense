@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Fonts/Title_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=3]
-[ext_resource path="res://GUI/PauseMenu.gd" type="Script" id=4]
+[ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/Marketplace.tscn" type="PackedScene" id=3]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -21,54 +20,8 @@ pause_mode = 1
 
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 
-[node name="PauseMenu" type="Control" parent="PauseScreen"]
-pause_mode = 2
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 3 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PauseMenu" parent="PauseScreen" instance=ExtResource( 2 )]
 
-[node name="PauseLabel" type="Label" parent="PauseScreen/PauseMenu"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -135.0
-margin_top = -92.0
-margin_right = 135.0
-margin_bottom = -23.0
-custom_fonts/font = ExtResource( 2 )
-text = "Pause"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="MarketLayer" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/PauseMenu"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -100.0
-margin_top = 20.0
-margin_right = 100.0
-margin_bottom = 164.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ResumeButton" type="Button" parent="PauseScreen/PauseMenu/VBoxContainer"]
-margin_right = 200.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 200, 38 )
-text = "Resume"
-
-[node name="QuitButton" type="Button" parent="PauseScreen/PauseMenu/VBoxContainer"]
-margin_top = 54.0
-margin_right = 200.0
-margin_bottom = 92.0
-rect_min_size = Vector2( 200, 38 )
-text = "Quit"
+[node name="Marketplace" parent="MarketLayer" instance=ExtResource( 3 )]

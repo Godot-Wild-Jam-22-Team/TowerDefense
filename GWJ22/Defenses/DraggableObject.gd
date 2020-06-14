@@ -1,17 +1,37 @@
 extends Area2D
 class_name DraggableObject
 
+signal grabbed_object
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+var grabbed := false setget set_grabbed
 
+var price := 500.0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass #do not mess with process as it may be used by children
 
+func initialize(position: Vector2, grab : bool = true) -> void:
+	global_position = position
+	self.grabbed = grab
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("main_click"):
+		self.grabbed = true
+#	elif event.is_action_released("main_click"):
+#		self.grabbed = false
+	elif event.is_action_pressed("secondary_click"):
+		rotation_degrees += 90
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_released("main_click"):
+		self.grabbed = false
+	if grabbed:
+		global_position = get_global_mouse_position()
+
+func set_grabbed(value: bool) -> void:
+	grabbed = value
+	if grabbed:
+		print("Grabbing")
+		emit_signal("grabbed_object")
+	else:
+		print("Dropping")
