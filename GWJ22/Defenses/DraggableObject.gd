@@ -36,9 +36,6 @@ func _process(_delta: float) -> void:
 	if _grabbed:
 		global_position = get_global_mouse_position()
 		if Input.is_action_just_released("main_click"):
-			if not _droppable:
-				$ErrorSound.play()
-				adjust_position(previous_position)
 			self._grabbed = false
 	
 
@@ -48,10 +45,17 @@ func _set_grabbed(value: bool) -> void:
 		previous_position = global_position
 		raise()
 	else:
-		$DropSound.play()
-		var payment = price if previous_position == start_position else 0.0
-		print("Pay %s" % payment)
-		emit_signal("dropped", self, payment)
+		if _droppable:
+			$DropSound.play()
+			var payment = price if previous_position == start_position else 0.0
+			print("Pay %s" % payment)
+			emit_signal("dropped", self, payment)
+		else:
+			$ErrorSound.play()
+			adjust_position(previous_position)
+
+func cancel_purchase() -> void:
+	adjust_position(start_position)
 
 func adjust_position(end_position: Vector2) -> void:
 	var duration = 2.0
