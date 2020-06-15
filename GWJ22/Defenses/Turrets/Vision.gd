@@ -9,10 +9,6 @@ var enemy
 var enemy_pos := Vector2(0,0)
 var has_focus := false
 
-func start(_position : Vector2, _direction: Vector2):
-	position = _position
-	rotation = _direction.angle()
-
 func _on_Vision_body_entered(body):
 	if(has_focus == false):
 		has_focus = true
