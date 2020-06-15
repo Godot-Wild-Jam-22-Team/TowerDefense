@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Marketplace",
 "language": "GDScript",
-"path": "res://Marketplace.gd"
+"path": "res://GUI/Marketplace.gd"
 }, {
 "base": "Control",
 "class": "PauseMenu",

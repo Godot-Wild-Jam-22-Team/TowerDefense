@@ -5,8 +5,8 @@
 [ext_resource path="res://GUI/Marketplace.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Wallet.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=5]
-[ext_resource path="res://WalletLabel.gd" type="Script" id=6]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GUI/WalletLabel.gd" type="Script" id=6]
+[ext_resource path="res://Foes/Enemy.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
