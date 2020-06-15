@@ -21,6 +21,8 @@ format = 1
 [node name="Enemies" type="Node" parent="."]
 pause_mode = 1
 
+[node name="Bullets" type="Node" parent="."]
+
 [node name="Defenses" type="Node" parent="."]
 pause_mode = 1
 

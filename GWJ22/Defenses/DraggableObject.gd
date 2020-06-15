@@ -48,13 +48,14 @@ func _set_grabbed(value: bool) -> void:
 		if _droppable:
 			$DropSound.play()
 			var payment = price if previous_position == start_position else 0.0
-			print("Pay %s" % payment)
+			#print("Pay %s" % payment)
 			emit_signal("dropped", self, payment)
 		else:
 			$ErrorSound.play()
 			adjust_position(previous_position)
 
 func cancel_purchase() -> void:
+	#print("Purchase canceled")
 	_start_flash()
 	adjust_position(start_position)
 
@@ -67,13 +68,19 @@ func adjust_position(end_position: Vector2) -> void:
 
 # Manage collisions while dragging
 
-func _on_DraggableObject_area_entered(_area: Area2D) -> void:
+func _on_DraggableObject_area_entered(area: Area2D) -> void:
+#	print("Area entered: %s" % area.name)
+	if area.name == "Vision":
+		return
 	self._droppable = false
 
-func _on_DraggableObject_area_exited(_area: Area2D) -> void:
+func _on_DraggableObject_area_exited(area: Area2D) -> void:
+	if area.name == "Vision":
+		return
 	self._droppable = true
 
 func _set_droppable(value: bool) -> void:
+	print("Changed droppable %s" % value)
 	_droppable = value
 	if not _grabbed:
 		return

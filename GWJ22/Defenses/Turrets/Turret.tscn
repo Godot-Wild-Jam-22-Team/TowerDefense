@@ -10,9 +10,7 @@ script = ExtResource( 1 )
 gun_cooldown = 2.0
 
 [node name="Vision" parent="." index="0" instance=ExtResource( 4 )]
-
-[node name="CollisionPolygon2D" parent="." index="1"]
-polygon = PoolVector2Array( 16, -16, 16, 16, -16, 16, -16, -16, 0, -48 )
+position = Vector2( 0, -48 )
 
 [node name="Placeholder" parent="." index="2"]
 visible = false
@@ -27,4 +25,6 @@ texture = ExtResource( 3 )
 position = Vector2( 0, -50 )
 
 [node name="Guntimer" type="Timer" parent="." index="5"]
+[connection signal="exited" from="Vision" to="." method="_on_Vision_exited"]
+[connection signal="updated" from="Vision" to="." method="_on_Vision_updated"]
 [connection signal="timeout" from="Guntimer" to="." method="_on_Guntimer_timeout"]

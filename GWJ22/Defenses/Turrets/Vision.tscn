@@ -6,6 +6,7 @@
 points = PoolVector2Array( 0, 0, 112, -48, 112, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 
 [node name="Vision" type="Area2D"]
+collision_layer = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
