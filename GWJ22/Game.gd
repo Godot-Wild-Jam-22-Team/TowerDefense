@@ -56,5 +56,15 @@ func set_state(new_state) -> void:
 			$MarketplaceTimer.start()
 
 
+func _on_Turret_created(vision, _position, _direction):
+	var v = vision.instance()
+	add_child(v)
+	v.start(_position, _direction)
+
+func _on_Turret_shoot(bullet, _position, _direction):
+	var b = bullet.instance()
+	add_child(b)
+	b.start(_position, _direction)
+
 func _on_MarketplaceTimer_timeout() -> void:
 	self.current_state = State.WAVE #no more money (test)

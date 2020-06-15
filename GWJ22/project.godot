@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "DraggableObject",
 "class": "Turret",
 "language": "GDScript",
-"path": "res://Defenses/Turret.gd"
+"path": "res://Defenses/Turrets/Turret.gd"
 }, {
 "base": "Node",
 "class": "Wallet",
