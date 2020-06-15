@@ -30,12 +30,12 @@ func drag_defense(item_scene: PackedScene) -> void:
 	#not yet dropped
 	new_defense.connect("dropped", self, "drop_defense")
 
-func drop_defense(object: DraggableObject, price: float) -> void:
+func drop_defense(defense: Turret, price: float) -> void:
 	if not wallet.remove_amount(price):
-		object.cancel_purchase()
+		defense.cancel_purchase()
 		return
 	#call adjust position using tile map coordinates
-	object.connect("", self, "") #connect shot signal here
+	defense.connect("shoot", self, "_on_Turret_shoot") #connect shot signal here
 
 func set_state(new_state) -> void:
 	if new_state == current_state:
@@ -55,16 +55,10 @@ func set_state(new_state) -> void:
 			marketplace.open()
 			$MarketplaceTimer.start()
 
-
-func _on_Turret_created(vision, _position, _direction):
-	var v = vision.instance()
-	add_child(v)
-	v.start(_position, _direction)
-
-func _on_Turret_shoot(bullet, _position, _direction):
-	var b = bullet.instance()
-	add_child(b)
-	b.start(_position, _direction)
+func _on_Turret_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
+	var bullet = bullet_scene.instance()
+	$Bullets.add_child(bullet)
+	bullet.start(_position, _direction)
 
 func _on_MarketplaceTimer_timeout() -> void:
 	self.current_state = State.WAVE #no more money (test)
