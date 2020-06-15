@@ -18,10 +18,6 @@ func _ready() -> void:
 func _on_Guntimer_timeout() -> void:
 	can_shoot = true
 
-#func created() -> void:
-#	var position = $Position2D.position
-#	emit_signal('created', vision, position, position)
-
 func shoot() -> void:
 	if can_shoot == true:
 		can_shoot = false
