@@ -23,6 +23,62 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_process_input(true)
 		get_tree().paused = false
 
+func set_state(new_state) -> void:
+	if new_state == current_state:
+		return
+	#Exit state logic
+	match current_state:
+		State.WAVE:
+			print("Reward player")
+			# add count to limit number of repetitions
+		State.MARKET:
+			marketplace.close()
+	
+	current_state = new_state
+	#Enter state logic
+	match current_state:
+		State.WAVE:
+			print("Start Wave phase")
+			_start_wave()
+		State.MARKET:
+			print("Start Market phase")
+			marketplace.open()
+			$MarketplaceTimer.start()
+
+# FIGHT SCENE
+
+func _start_wave(enemies_count: int = 3) -> void:
+	# spawn enemies according to count
+	# for each new enemy:
+	#	instance, 
+	#	add to $Enemies
+	#	set a random path (We don't want them to proceed in line)
+	#   new_enemy.connect("die", self, "check_game")
+	
+	pass
+
+func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
+	var bullet = bullet_scene.instance()
+	$Bullets.add_child(bullet)
+	bullet.start(_position, _direction)
+
+
+func check_game() -> void:
+	# count children in $Enemies
+	# if 0: self.state = State.MARKET
+	
+	pass
+
+func gameover() -> void:
+	#we could pass a count of enemies destroyed and other stats
+	#show gameover scene with options like in pause
+	pass
+
+# MARKET RELATED PHASE
+
+func _on_MarketplaceTimer_timeout() -> void:
+	self.current_state = State.WAVE #no more money (test)
+
 func drag_defense(item_scene: PackedScene) -> void:
 	var new_defense : DraggableObject = item_scene.instance()
 	$Defenses.add_child(new_defense)
@@ -36,29 +92,3 @@ func drop_defense(defense: Turret, price: float) -> void:
 		defense.cancel_purchase()
 		return
 	# enable code here(?)
-
-func set_state(new_state) -> void:
-	if new_state == current_state:
-		return
-	#Exit state logic
-	match current_state:
-		State.MARKET:
-			marketplace.close()
-	
-	current_state = new_state
-	#Enter state logic
-	match current_state:
-		State.WAVE:
-			print("Start Wave phase")
-		State.MARKET:
-			print("Start Market phase")
-			marketplace.open()
-			$MarketplaceTimer.start()
-
-func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
-	var bullet = bullet_scene.instance()
-	$Bullets.add_child(bullet)
-	bullet.start(_position, _direction)
-
-func _on_MarketplaceTimer_timeout() -> void:
-	self.current_state = State.WAVE #no more money (test)
