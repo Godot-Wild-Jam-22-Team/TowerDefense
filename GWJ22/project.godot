@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://GUI/MarketItem.gd"
 }, {
 "base": "Control",
+"class": "Marketplace",
+"language": "GDScript",
+"path": "res://Marketplace.gd"
+}, {
+"base": "Control",
 "class": "PauseMenu",
 "language": "GDScript",
 "path": "res://GUI/PauseMenu.gd"
@@ -33,13 +38,20 @@ _global_script_classes=[ {
 "class": "Turret",
 "language": "GDScript",
 "path": "res://Defenses/Turrets/Turret.gd"
+}, {
+"base": "Node",
+"class": "Wallet",
+"language": "GDScript",
+"path": "res://Wallet.gd"
 } ]
 _global_script_class_icons={
 "DraggableObject": "",
 "MarketItem": "",
+"Marketplace": "",
 "PauseMenu": "",
 "StartScreen": "",
-"Turret": ""
+"Turret": "",
+"Wallet": ""
 }
 
 [application]

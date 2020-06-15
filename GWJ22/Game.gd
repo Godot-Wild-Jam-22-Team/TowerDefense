@@ -1,10 +1,16 @@
 extends Node
 
+onready var wallet : Wallet = $Wallet
 onready var pause_menu := $PauseScreen/PauseMenu
 onready var marketplace := $MarketLayer/Marketplace
-# Called when the node enters the scene tree for the first time.
+
+enum State {WAVE, MARKET}
+var current_state = State.MARKET setget set_state
+
 func _ready() -> void:
-	marketplace.connect("instance_item", self, "add_defense")
+	wallet.intialize(1000.0)
+	marketplace.connect("instance_item", self, "drag_defense")
+	$MarketplaceTimer.start()
 	pass # Replace with function body.
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -17,10 +23,38 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_process_input(true)
 		get_tree().paused = false
 
-func add_defense(item_scene: PackedScene) -> void:
-	var new_defense = item_scene.instance()
+func drag_defense(item_scene: PackedScene) -> void:
+	var new_defense : DraggableObject = item_scene.instance()
 	$Defenses.add_child(new_defense)
 	new_defense.initialize($Navigation2D.get_global_mouse_position(), true)
+	#not yet dropped
+	new_defense.connect("dropped", self, "drop_defense")
+
+func drop_defense(object: DraggableObject, price: float) -> void:
+	if not wallet.remove_amount(price):
+		object.cancel_purchase()
+		return
+	#call adjust position using tile map coordinates
+	object.connect("", self, "") #connect shot signal here
+
+func set_state(new_state) -> void:
+	if new_state == current_state:
+		return
+	#Exit state logic
+	match current_state:
+		State.MARKET:
+			marketplace.close()
+	
+	current_state = new_state
+	#Enter state logic
+	match current_state:
+		State.WAVE:
+			print("Start Wave phase")
+		State.MARKET:
+			print("Start Market phase")
+			marketplace.open()
+			$MarketplaceTimer.start()
+
 
 func _on_Turret_created(vision, _position, _direction):
 	var v = vision.instance()
@@ -32,10 +66,5 @@ func _on_Turret_shoot(bullet, _position, _direction):
 	add_child(b)
 	b.start(_position, _direction)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
-
-
-
+func _on_MarketplaceTimer_timeout() -> void:
+	self.current_state = State.WAVE #no more money (test)
