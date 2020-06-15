@@ -3,10 +3,10 @@
 [ext_resource path="res://Defenses/Turrets/Vision.gd" type="Script" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, 112, -48, 112, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+points = PoolVector2Array( 0, 0, -48, -112, 48, -112 )
 
 [node name="Vision" type="Area2D"]
-position = Vector2( 263.713, 233.826 )
+collision_layer = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

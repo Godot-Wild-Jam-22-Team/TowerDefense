@@ -1,28 +1,26 @@
 extends Area2D
 
+class_name Vision
+
 signal updated
 signal exited
 
-var enemy
-var enemy_pos = Vector2(0,0)
-var has_focus = false
+var enemy: KinematicBody2D
+var enemy_pos := Vector2(0,0)
+var has_focus := false
 
-func start(_position, _direction):
-	position = _position
-	rotation = _direction.angle()
-
-func _on_Vision_body_entered(body):
+func _on_Vision_body_entered(body: KinematicBody2D) -> void:
 	if(has_focus == false):
 		has_focus = true
 		enemy = body
 
-func _on_Vision_body_exited(body):
+func _on_Vision_body_exited(body: KinematicBody2D) -> void:
 	has_focus = false
 	emit_signal('exited')
 
-func update_enemy_position():
+func update_enemy_position() -> void:
 	if(has_focus == true):
-		emit_signal('updated', enemy.position)
+		emit_signal('updated', enemy.global_position)
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	update_enemy_position()
