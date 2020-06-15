@@ -3,7 +3,7 @@ class_name DraggableObject
 
 signal dropped(object, price)
 
-export (bool) var REPOSITIONABLE := true
+export (bool) var repositionable := true #turn of after marketplace event is ended
 
 var start_position := Vector2.ZERO #used in case of cancel purchase animation
 var previous_position := Vector2.ZERO
@@ -25,10 +25,12 @@ func initialize(position: Vector2, grab : bool = true) -> void:
 	global_position = start_position
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_pressed("main_click"):
-		self._grabbed = true
-	elif event.is_action_pressed("secondary_click"):
-		rotation_degrees += 90
+	if repositionable:
+		if event.is_action_pressed("main_click"):
+			self._grabbed = true
+		elif event.is_action_pressed("secondary_click"):
+			rotation_degrees += 90
+	
 
 func _process(_delta: float) -> void:
 	if _grabbed:
@@ -47,8 +49,9 @@ func _set_grabbed(value: bool) -> void:
 		raise()
 	else:
 		$DropSound.play()
-		emit_signal("dropped", self, price)
-		price = 0.0 #after first placement, do not pay
+		var payment = price if previous_position == start_position else 0.0
+		print("Pay %s" % payment)
+		emit_signal("dropped", self, payment)
 
 func adjust_position(end_position: Vector2) -> void:
 	var duration = 2.0
