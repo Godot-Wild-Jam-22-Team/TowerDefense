@@ -1,10 +1,15 @@
 extends Node
 
+onready var wallet : Wallet = $Wallet
 onready var pause_menu := $PauseScreen/PauseMenu
 onready var marketplace := $MarketLayer/Marketplace
-# Called when the node enters the scene tree for the first time.
+
+enum State {WAVE, MARKET}
+var current_state = State.MARKET
+
 func _ready() -> void:
-	marketplace.connect("instance_item", self, "add_defense")
+	wallet.intialize(1000.0)
+	marketplace.connect("instance_item", self, "drag_defense")
 	pass # Replace with function body.
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -17,11 +22,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_process_input(true)
 		get_tree().paused = false
 
-func add_defense(item_scene: PackedScene) -> void:
-	var new_defense = item_scene.instance()
+func drag_defense(item_scene: PackedScene) -> void:
+	var new_defense : DraggableObject = item_scene.instance()
 	$Defenses.add_child(new_defense)
 	new_defense.initialize($Navigation2D.get_global_mouse_position(), true)
+	#not yet dropped
+	new_defense.connect("dropped", self, "drop_defense")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func drop_defense(object: DraggableObject, price: float) -> void:
+	if not wallet.remove_amount(price):
+		object.cancel_purchase()
+		print("Cancel purchase")
+		return
+	#call adjust position using tile map coordinates
+	object.connect("", self, "") #connect shot signal here

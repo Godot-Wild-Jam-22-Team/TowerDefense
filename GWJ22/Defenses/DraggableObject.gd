@@ -55,12 +55,14 @@ func _set_grabbed(value: bool) -> void:
 			adjust_position(previous_position)
 
 func cancel_purchase() -> void:
+	_start_flash()
 	adjust_position(start_position)
 
 func adjust_position(end_position: Vector2) -> void:
 	var duration = 2.0
 	$Tween.interpolate_property(self, "global_position",
 	global_position, end_position, duration, Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
+	$Tween.start()
 	pass
 
 # Manage collisions while dragging
@@ -78,14 +80,14 @@ func _set_droppable(value: bool) -> void:
 	if _droppable:
 		_reset_flash()
 	else:
-		_start_tween()
+		_start_flash()
 
 func _reset_flash() -> void:
 	$Tween.stop_all()
 	$Placeholder.modulate = Color.white
 	$Sprite.modulate = Color.white
 
-func _start_tween():
+func _start_flash():
 	$Tween.interpolate_property(
 		$Placeholder, #$Sprite,
 		"modulate",
@@ -105,4 +107,4 @@ func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
 			_reset_flash()
 	if key == ":modulate": #flashing color
 		flashing_colors.invert()
-		_start_tween()
+		_start_flash()
