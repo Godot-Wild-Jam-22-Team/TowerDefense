@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "Turret",
 "language": "GDScript",
 "path": "res://Defenses/Turret.gd"
+}, {
+"base": "Node",
+"class": "Wallet",
+"language": "GDScript",
+"path": "res://Wallet.gd"
 } ]
 _global_script_class_icons={
 "DraggableObject": "",
 "MarketItem": "",
 "PauseMenu": "",
 "StartScreen": "",
-"Turret": ""
+"Turret": "",
+"Wallet": ""
 }
 
 [application]
