@@ -10,6 +10,9 @@
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
 
+[node name="MarketplaceTimer" type="Timer" parent="."]
+wait_time = 15.0
+
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="Navigation2D"]
@@ -49,4 +52,5 @@ __meta__ = {
 
 [node name="Wallet" type="Node" parent="."]
 script = ExtResource( 4 )
+[connection signal="timeout" from="MarketplaceTimer" to="." method="_on_MarketplaceTimer_timeout"]
 [connection signal="amount_changed" from="Wallet" to="MarketLayer/MarketHUD/WalletLabel" method="_on_Wallet_amount_changed"]

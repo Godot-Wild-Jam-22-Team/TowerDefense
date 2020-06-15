@@ -1,5 +1,5 @@
 extends Control
-
+class_name Marketplace
 signal instance_item(item_scene)
 
 onready var items := $Items.get_children()
