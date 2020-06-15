@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Wallet.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=5]
 [ext_resource path="res://WalletLabel.gd" type="Script" id=6]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -20,6 +21,8 @@ format = 1
 
 [node name="Enemies" type="Node" parent="."]
 pause_mode = 1
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 7 )]
 
 [node name="Bullets" type="Node" parent="."]
 
