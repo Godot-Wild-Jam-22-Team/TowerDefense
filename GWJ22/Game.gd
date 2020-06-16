@@ -4,6 +4,9 @@ onready var wallet : Wallet = $Wallet
 onready var pause_menu := $PauseScreen/PauseMenu
 onready var marketplace := $MarketLayer/Marketplace
 
+export (PackedScene) var enemy_scene
+var base_position := Vector2(850.0, 300.0) #replace with actual base
+
 enum State {WAVE, MARKET}
 var current_state = State.MARKET setget set_state
 
@@ -48,6 +51,14 @@ func set_state(new_state) -> void:
 # FIGHT SCENE
 
 func _start_wave(enemies_count: int = 3) -> void:
+	randomize()
+	for i in enemies_count:
+		var new_enemy : Foe = enemy_scene.instance()
+		$Enemies.add_child(new_enemy)
+		var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
+		new_enemy.initialize(start_point, base_position)
+		new_enemy.connect("die", self, "check_game")
+	
 	# spawn enemies according to count
 	# for each new enemy:
 	#	instance, 
@@ -64,6 +75,7 @@ func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
 
 
 func check_game() -> void:
+	print("Checking game")
 	# count children in $Enemies
 	# if 0: self.state = State.MARKET
 	

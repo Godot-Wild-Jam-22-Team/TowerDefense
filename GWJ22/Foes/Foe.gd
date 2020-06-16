@@ -18,8 +18,8 @@ var targets = []
 var distance_threshold := 5.0
 
 func _ready() -> void:
-	randomize()
-	initialize(Vector2(200.0, 0.0), Vector2(850.0, 300.0))
+	#randomize()
+	#initialize(Vector2(200.0, 0.0), Vector2(850.0, 300.0))
 	pass # Replace with function body.
 
 func initialize(start_position: Vector2, destination: Vector2) -> void:
@@ -70,7 +70,8 @@ func _process(delta: float) -> void:
 
 func attack(target: DamageableObject) -> void:
 	#bounce animation
-	target.take_damage(ATTACK_POWER)
+	#target.take_damage(ATTACK_POWER)
+	pass
 
 func _on_View_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player"):

@@ -1,7 +1,7 @@
 extends Area2D
 class_name DamageableObject
 
-signal die(object) # used to check game status
+signal die() # used to check game status
 signal health_changed(newvalue) #updates progress bars
 
 var health := 4 setget set_health # 10 for 
