@@ -18,19 +18,31 @@ var targets = []
 var distance_threshold := 5.0
 
 func _ready() -> void:
-	initialize(Vector2(200.0, 0.0), Vector2(850.0, 500.0))
+	randomize()
+	initialize(Vector2(200.0, 0.0), Vector2(850.0, 300.0))
 	pass # Replace with function body.
 
 func initialize(start_position: Vector2, destination: Vector2) -> void:
 	global_position = start_position
-	#pick random points along a general path
+
+	var turning_point = random_near_point(Vector2(global_position.x, destination.y))
 	
-	path.append(Vector2(global_position.x, destination.y))
-	# a pivot where to turn and a couple of points in between to variate the path
-	
+	path.append(random_near_point(mid_point(start_position, turning_point)))
+	path.append(turning_point)
+	path.append(random_near_point(mid_point(turning_point, destination)))
+
 	path.append(destination)
 	self.current_state = State.WALK
+	print(path)
 
+func random_near_point(point: Vector2, max_distance: float = 300.0) -> Vector2:
+	randomize()
+	var distance = randf() * max_distance
+	var angle = randf() * 2 * PI
+	return point + Vector2(distance*cos(angle), distance*sin(angle))
+
+func mid_point(p1: Vector2, p2: Vector2) -> Vector2:
+	return Vector2(p1.x + p2.x, p1.y + p2.y)/2
 
 func _process(delta: float) -> void:
 	var temp_destination := Vector2.ZERO
