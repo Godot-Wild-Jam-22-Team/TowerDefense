@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 class_name DamageableObject
 
 signal die() # used to check game status

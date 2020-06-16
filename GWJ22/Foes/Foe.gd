@@ -44,7 +44,7 @@ func random_near_point(point: Vector2, max_distance: float = 300.0) -> Vector2:
 func mid_point(p1: Vector2, p2: Vector2) -> Vector2:
 	return Vector2(p1.x + p2.x, p1.y + p2.y)/2
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var temp_destination := Vector2.ZERO
 	match current_state:
 		State.WALK:
@@ -62,7 +62,8 @@ func _process(delta: float) -> void:
 				return #do not walk after attack (especially if the target dies)
 			
 	velocity = temp_destination - global_position
-	global_position += velocity.normalized() * speed * delta
+	move_and_slide(velocity.normalized() * speed)
+	#global_position += velocity.normalized() * speed * delta
 
 # //should also react to damage, so listen for health change signal(?) - I cannot know the direction as bullets are indpeendent objects, unless I follow the incoming direction
 
@@ -97,11 +98,11 @@ func set_current_state(new_state) -> void:
 	
 	match current_state:
 		State.WALK:
-			set_process(true)
+			set_physics_process(true)
 		State.ATTACK:
-			set_process(true)
+			set_physics_process(true)
 		State.IDLE:
-			set_process(false)
+			set_physics_process(false)
 		State.DIE:
-			set_process(false)
+			set_physics_process(false)
 			pass #any animation here

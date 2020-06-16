@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Base.gd"
 }, {
-"base": "Area2D",
+"base": "KinematicBody2D",
 "class": "DamageableObject",
 "language": "GDScript",
 "path": "res://DamageableObject.gd"
