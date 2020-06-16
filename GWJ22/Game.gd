@@ -5,7 +5,6 @@ onready var pause_menu := $PauseScreen/PauseMenu
 onready var marketplace := $MarketLayer/Marketplace
 
 export (PackedScene) var enemy_scene
-var base_position := Vector2(850.0, 300.0) #replace with actual base
 
 enum State {WAVE, MARKET}
 var current_state = State.MARKET setget set_state
@@ -52,6 +51,7 @@ func set_state(new_state) -> void:
 
 func _start_wave(enemies_count: int = 3) -> void:
 	randomize()
+	var base_position = $Base.global_position
 	for i in enemies_count:
 		var new_enemy : Foe = enemy_scene.instance()
 		$Enemies.add_child(new_enemy)

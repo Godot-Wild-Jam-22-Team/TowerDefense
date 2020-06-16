@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "DamageableObject",
+"class": "Base",
+"language": "GDScript",
+"path": "res://Base.gd"
+}, {
 "base": "Area2D",
 "class": "DamageableObject",
 "language": "GDScript",
@@ -60,6 +65,7 @@ _global_script_classes=[ {
 "path": "res://Wallet.gd"
 } ]
 _global_script_class_icons={
+"Base": "",
 "DamageableObject": "",
 "DraggableObject": "",
 "Foe": "",

@@ -68,9 +68,9 @@ func _process(delta: float) -> void:
 
 # bullets should implement an attack method too when touching an area in foe group
 
-func attack(target: DamageableObject) -> void:
+func attack(target: Area2D) -> void:
 	#bounce animation
-	#target.take_damage(ATTACK_POWER)
+	target.take_damage(ATTACK_POWER)
 	pass
 
 func _on_View_area_entered(area: Area2D) -> void:
