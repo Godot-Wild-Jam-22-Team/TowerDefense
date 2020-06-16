@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Defenses/DraggableObject.gd"
 }, {
-"base": "Area2D",
+"base": "DamageableObject",
 "class": "Foe",
 "language": "GDScript",
 "path": "res://Foes/Foe.gd"

@@ -6,7 +6,9 @@
 [ext_resource path="res://Defenses/Turrets/Vision.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Sprites/turret.png" type="Texture" id=5]
 
-[node name="Turret" instance=ExtResource( 2 )]
+[node name="Turret" groups=[
+"player",
+] instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 gun_cooldown = 2.0
 bullet_scene = ExtResource( 3 )
