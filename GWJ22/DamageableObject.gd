@@ -10,6 +10,7 @@ func take_damage(value: int = 1) -> void:
 	health -= value
 
 func die() -> void:
+	print("Death of %s" % self.name)
 	emit_signal("die", self.name)
 	queue_free()
 

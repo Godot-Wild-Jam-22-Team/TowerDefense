@@ -33,7 +33,7 @@ func initialize(start_position: Vector2, destination: Vector2) -> void:
 
 	path.append(destination)
 	self.current_state = State.WALK
-	print(path)
+	#print(path)
 
 func random_near_point(point: Vector2, max_distance: float = 300.0) -> Vector2:
 	randomize()
@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 			
 		State.ATTACK:
 			temp_destination = targets[0].global_position
-			if global_position.distance_to(temp_destination) < distance_threshold:
+			if global_position.distance_to(temp_destination) < distance_threshold *4:
 				attack(targets[0]) #add a tempo for attack
 				return #do not walk after attack (especially if the target dies)
 			
@@ -71,20 +71,10 @@ func _physics_process(delta: float) -> void:
 
 func attack(target: Area2D) -> void:
 	#bounce animation
+	print("Attacking")
 	target.take_damage(ATTACK_POWER)
 	pass
 
-func _on_View_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player"):
-		targets.append(area)
-		self.current_state = State.ATTACK
-
-func _on_View_area_exited(area: Area2D) -> void:
-	if area.is_in_group("player"):
-		var idx = targets.find(area)
-		targets.remove(idx)
-		if targets.size() <= 0:
-			self.current_state = State.WALK
 
 func die():
 	self.current_state = State.DIE
@@ -106,3 +96,32 @@ func set_current_state(new_state) -> void:
 		State.DIE:
 			set_physics_process(false)
 			pass #any animation here
+
+func _on_View_area_entered(area: Area2D) -> void:
+	pass
+	if area.is_in_group("player"):
+		targets.append(area)
+		self.current_state = State.ATTACK
+
+func _on_View_area_exited(area: Area2D) -> void:
+	pass
+	if area.is_in_group("player"):
+		var idx = targets.find(area)
+		targets.remove(idx)
+		if targets.size() <= 0:
+			self.current_state = State.WALK
+
+
+#Base
+func _on_View_body_entered(body: Node) -> void:
+	if body.is_in_group("player"):
+		targets.append(body)
+		self.current_state = State.ATTACK
+
+
+func _on_View_body_exited(body: Node) -> void:
+	if body.is_in_group("player"):
+		var idx = targets.find(body)
+		targets.remove(idx)
+		if targets.size() <= 0:
+			self.current_state = State.WALK
