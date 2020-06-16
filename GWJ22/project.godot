@@ -10,9 +10,19 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
+"class": "DamageableObject",
+"language": "GDScript",
+"path": "res://DamageableObject.gd"
+}, {
+"base": "Area2D",
 "class": "DraggableObject",
 "language": "GDScript",
 "path": "res://Defenses/DraggableObject.gd"
+}, {
+"base": "Area2D",
+"class": "Foe",
+"language": "GDScript",
+"path": "res://Foes/Foe.gd"
 }, {
 "base": "Button",
 "class": "MarketItem",
@@ -50,7 +60,9 @@ _global_script_classes=[ {
 "path": "res://Wallet.gd"
 } ]
 _global_script_class_icons={
+"DamageableObject": "",
 "DraggableObject": "",
+"Foe": "",
 "MarketItem": "",
 "Marketplace": "",
 "PauseMenu": "",
