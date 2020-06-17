@@ -37,3 +37,16 @@ func _process(_delta: float) -> void:
 	._process(_delta) #call parent execution to allow drag
 	if(has_focused_enemy == true):
 		shoot()
+
+# Aftermarket health management ( I want to make draggable a child of damageable)
+var health := 4 setget set_health # 10 for 
+
+func take_damage(value: int = 1) -> void:
+	health -= value
+
+func set_health(value) -> void:
+	health = max(0, value)
+	#call update on progress bar
+	if health <= 0:
+		print("Turret dead")
+		queue_free() #and any animation

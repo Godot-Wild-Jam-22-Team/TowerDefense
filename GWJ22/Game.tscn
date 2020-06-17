@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=2]
@@ -6,10 +6,13 @@
 [ext_resource path="res://Wallet.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=5]
 [ext_resource path="res://GUI/WalletLabel.gd" type="Script" id=6]
-[ext_resource path="res://Foes/Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Foes/Foe.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Base.tscn" type="PackedScene" id=8]
+[ext_resource path="res://GUI/GameoverMenu.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
+enemy_scene = ExtResource( 7 )
 
 [node name="MarketplaceTimer" type="Timer" parent="."]
 wait_time = 15.0
@@ -22,8 +25,6 @@ format = 1
 [node name="Enemies" type="Node" parent="."]
 pause_mode = 1
 
-[node name="Enemy" parent="Enemies" instance=ExtResource( 7 )]
-
 [node name="Bullets" type="Node" parent="."]
 
 [node name="Defenses" type="Node" parent="."]
@@ -32,6 +33,9 @@ pause_mode = 1
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="PauseScreen" instance=ExtResource( 2 )]
+
+[node name="GameoverMenu" parent="PauseScreen" instance=ExtResource( 9 )]
+visible = false
 
 [node name="MarketLayer" type="CanvasLayer" parent="."]
 
@@ -57,5 +61,10 @@ __meta__ = {
 
 [node name="Wallet" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="Base" parent="." instance=ExtResource( 8 )]
+position = Vector2( 832, 448 )
+scale = Vector2( 1.5, 1.5 )
 [connection signal="timeout" from="MarketplaceTimer" to="." method="_on_MarketplaceTimer_timeout"]
 [connection signal="amount_changed" from="Wallet" to="MarketLayer/MarketHUD/WalletLabel" method="_on_Wallet_amount_changed"]
+[connection signal="die" from="Base" to="." method="_on_Base_die"]

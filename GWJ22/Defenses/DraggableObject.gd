@@ -80,7 +80,7 @@ func _on_DraggableObject_area_exited(area: Area2D) -> void:
 	self._droppable = true
 
 func _set_droppable(value: bool) -> void:
-	print("Changed droppable %s" % value)
+	#print("Changed droppable %s" % value)
 	_droppable = value
 	if not _grabbed:
 		return

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GUI/GameoverMenu.gd" type="Script" id=2]
+
+[node name="GameoverMenu" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="PauseLabel" parent="." index="0"]
+margin_left = -216.0
+margin_top = -108.0
+margin_right = 216.0
+margin_bottom = -39.0
+text = "Gameover"

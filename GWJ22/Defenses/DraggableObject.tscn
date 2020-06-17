@@ -6,9 +6,11 @@
 script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
 polygon = PoolVector2Array( 16, -16, 16, 16, -16, 16, -16, -16, 0, -32 )
 
 [node name="Placeholder" type="Polygon2D" parent="."]
+rotation = 1.5708
 polygon = PoolVector2Array( -16, 16, 16, 16, 16, -16, 0, -32, -16, -16 )
 
 [node name="Sprite" type="Sprite" parent="."]
