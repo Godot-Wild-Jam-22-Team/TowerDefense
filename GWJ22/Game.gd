@@ -2,6 +2,7 @@ extends Node
 
 onready var wallet : Wallet = $Wallet
 onready var pause_menu := $PauseScreen/PauseMenu
+onready var gameover_menu := $PauseScreen/GameoverMenu
 onready var marketplace := $MarketLayer/Marketplace
 
 export (PackedScene) var enemy_scene
@@ -83,7 +84,12 @@ func check_game() -> void:
 
 func gameover(message: String = "Gameover") -> void:
 	print("Game Over: %s" % message)
-	pass
+	gameover_menu.open()
+	set_process_input(false)
+	get_tree().paused = true
+	yield(gameover_menu, "closed")
+	set_process_input(true)
+	get_tree().paused = true
 
 # MARKET RELATED PHASE
 
@@ -106,4 +112,4 @@ func drop_defense(defense: Turret, price: float) -> void:
 
 
 func _on_Base_die(name: String) -> void:
-	gameover()
+	gameover("You lost!")

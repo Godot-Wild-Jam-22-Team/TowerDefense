@@ -8,7 +8,8 @@ func _ready() -> void:
 	set_process_input(false)
 	visible = false
 
-func open() -> void:
+func open(message: String = "Pause") -> void:
+	$PauseLabel.text = message
 	set_process_input(true)
 	emit_signal("open")
 	show()
@@ -24,8 +25,10 @@ func _input(event: InputEvent) -> void:
 		#ISSUE called correctly but not working as with button
 
 func _on_ResumeButton_pressed() -> void:
-	close()
+	_first_button_action()
 
+func _first_button_action() -> void:
+	close()
 
 func _on_QuitButton_pressed() -> void:
 	get_tree().paused = false

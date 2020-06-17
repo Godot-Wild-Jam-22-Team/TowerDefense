@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://GUI/WalletLabel.gd" type="Script" id=6]
 [ext_resource path="res://Foes/Foe.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Base.tscn" type="PackedScene" id=8]
+[ext_resource path="res://GUI/GameoverMenu.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -32,7 +33,9 @@ pause_mode = 1
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="PauseScreen" instance=ExtResource( 2 )]
-visible = true
+
+[node name="GameoverMenu" parent="PauseScreen" instance=ExtResource( 9 )]
+visible = false
 
 [node name="MarketLayer" type="CanvasLayer" parent="."]
 
