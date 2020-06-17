@@ -16,7 +16,7 @@ func die() -> void:
 	queue_free()
 
 func set_health(value) -> void:
-	health = max(0, value)
+	health = max(0.0, value)
 	#print("%s health: %s " % [self.name, health])
 	emit_signal("health_changed", health)
 	if health <= 0:

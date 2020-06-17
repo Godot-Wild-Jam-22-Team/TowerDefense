@@ -22,7 +22,7 @@ func shoot() -> void:
 	if can_shoot == true:
 		can_shoot = false
 		$Guntimer.start()
-		var direction = Vector2(0,-1).rotated(global_rotation)
+		var direction = Vector2(1,0).rotated(global_rotation)
 		emit_signal('shoot', bullet_scene, $Position2D.global_position, direction)
 
 func _on_Vision_updated(_position: Vector2) -> void:
@@ -32,6 +32,8 @@ func _on_Vision_updated(_position: Vector2) -> void:
 
 func _on_Vision_exited() -> void:
 	has_focused_enemy = false
+	$RotationTween.interpolate_property(self, "rotation", rotation, default_rotation, 1.5, Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT)
+	$RotationTween.start()
 
 func _process(_delta: float) -> void:
 	._process(_delta) #call parent execution to allow drag
@@ -45,7 +47,7 @@ func take_damage(value: int = 1) -> void:
 	health -= value
 
 func set_health(value) -> void:
-	health = max(0, value)
+	health = max(0.0, value)
 	#call update on progress bar
 	if health <= 0:
 		print("Turret dead")
