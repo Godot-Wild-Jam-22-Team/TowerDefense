@@ -6,6 +6,8 @@ onready var marketplace := $MarketLayer/Marketplace
 
 export (PackedScene) var enemy_scene
 
+export (int, 3, 20) var left_wave_count := 3
+
 enum State {WAVE, MARKET}
 var current_state = State.MARKET setget set_state
 
@@ -49,8 +51,9 @@ func set_state(new_state) -> void:
 
 # FIGHT SCENE
 
-func _start_wave(enemies_count: int = 3) -> void:
+func _start_wave(enemies_count: int = 1) -> void:
 	randomize()
+	left_wave_count -= 1
 	var base_position = $Base.global_position
 	for i in enemies_count:
 		var new_enemy : Foe = enemy_scene.instance()
@@ -58,13 +61,6 @@ func _start_wave(enemies_count: int = 3) -> void:
 		var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
 		new_enemy.initialize(start_point, base_position)
 		new_enemy.connect("die", self, "check_game")
-	
-	# spawn enemies according to count
-	# for each new enemy:
-	#	instance, 
-	#	add to $Enemies
-	#	set a random path (We don't want them to proceed in line)
-	#   new_enemy.connect("die", self, "check_game")
 	
 	pass
 
@@ -76,14 +72,17 @@ func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
 
 func check_game() -> void:
 	print("Checking game")
-	# count children in $Enemies
-	# if 0: self.state = State.MARKET
+	if $Enemies.get_child_count() <= 0:
+		wallet.add_amount(1500)
+		if left_wave_count <= 0:
+			gameover()
+		else:
+			self.current_state = State.MARKET
 	
 	pass
 
-func gameover() -> void:
-	#we could pass a count of enemies destroyed and other stats
-	#show gameover scene with options like in pause
+func gameover(message: String = "Gameover") -> void:
+	print("Game Over: %s" % message)
 	pass
 
 # MARKET RELATED PHASE
@@ -104,3 +103,7 @@ func drop_defense(defense: Turret, price: float) -> void:
 		defense.cancel_purchase()
 		return
 	# enable code here(?)
+
+
+func _on_Base_die(name: String) -> void:
+	gameover()

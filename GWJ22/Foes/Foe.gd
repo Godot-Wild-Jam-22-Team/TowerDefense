@@ -35,7 +35,7 @@ func initialize(start_position: Vector2, destination: Vector2) -> void:
 	self.current_state = State.WALK
 	#print(path)
 
-func random_near_point(point: Vector2, max_distance: float = 300.0) -> Vector2:
+func random_near_point(point: Vector2, max_distance: float = 150.0) -> Vector2:
 	randomize()
 	var distance = randf() * max_distance
 	var angle = randf() * 2 * PI
@@ -54,22 +54,20 @@ func _physics_process(delta: float) -> void:
 				self.current_state = State.IDLE
 				return
 			temp_destination = path[0]
+			look_at(path[0])
 			
 		State.ATTACK:
-			temp_destination = targets[0].global_position
-			if global_position.distance_to(temp_destination) < distance_threshold *4:
-				attack(targets[0]) #add a tempo for attack
-				return #do not walk after attack (especially if the target dies)
+			attack(targets[0]) #add a tempo for attack
+			return #do not walk after attack (especially if the target dies)
 			
 	velocity = temp_destination - global_position
-	move_and_slide(velocity.normalized() * speed)
-	#global_position += velocity.normalized() * speed * delta
+	var collision = move_and_slide(velocity.normalized() * speed)
 
 # //should also react to damage, so listen for health change signal(?) - I cannot know the direction as bullets are indpeendent objects, unless I follow the incoming direction
 
 # bullets should implement an attack method too when touching an area in foe group
 
-func attack(target: Area2D) -> void:
+func attack(target: DamageableObject) -> void:
 	#bounce animation
 	print("Attacking")
 	target.take_damage(ATTACK_POWER)
@@ -90,6 +88,7 @@ func set_current_state(new_state) -> void:
 		State.WALK:
 			set_physics_process(true)
 		State.ATTACK:
+			print("Switched state to Attack")
 			set_physics_process(true)
 		State.IDLE:
 			set_physics_process(false)
@@ -97,19 +96,19 @@ func set_current_state(new_state) -> void:
 			set_physics_process(false)
 			pass #any animation here
 
-func _on_View_area_entered(area: Area2D) -> void:
-	pass
-	if area.is_in_group("player"):
-		targets.append(area)
-		self.current_state = State.ATTACK
-
-func _on_View_area_exited(area: Area2D) -> void:
-	pass
-	if area.is_in_group("player"):
-		var idx = targets.find(area)
-		targets.remove(idx)
-		if targets.size() <= 0:
-			self.current_state = State.WALK
+#func _on_View_area_entered(area: Area2D) -> void:
+#	pass
+#	if area.is_in_group("player"):
+#		targets.append(area)
+#		self.current_state = State.ATTACK
+#
+#func _on_View_area_exited(area: Area2D) -> void:
+#	pass
+#	if area.is_in_group("player"):
+#		var idx = targets.find(area)
+#		targets.remove(idx)
+#		if targets.size() <= 0:
+#			self.current_state = State.WALK
 
 
 #Base

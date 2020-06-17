@@ -7,7 +7,9 @@
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( -23, -42, -23, 24, -18, 24, -18, 48, 6, 48, 6, 24, 24, 24, 24, 9, 65, 9, 65, -23, 24, -23, 24, -32, 14, -32, 14, -42 )
 
-[node name="Base" instance=ExtResource( 1 )]
+[node name="Base" groups=[
+"player",
+] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]

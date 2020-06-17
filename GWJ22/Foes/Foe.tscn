@@ -13,6 +13,7 @@ radius = 72.0
 script = ExtResource( 2 )
 
 [node name="View" type="Area2D" parent="." index="1"]
+rotation = -1.5708
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="View" index="0"]
@@ -20,6 +21,7 @@ position = Vector2( 0, 40 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="2"]
+rotation = -1.5708
 texture = ExtResource( 3 )
 vframes = 5
 hframes = 7
