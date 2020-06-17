@@ -69,7 +69,6 @@ func _physics_process(_delta: float) -> void:
 
 func attack(target: DamageableObject) -> void:
 	#bounce animation
-	print("Attacking")
 	target.take_damage(ATTACK_POWER)
 	pass
 
