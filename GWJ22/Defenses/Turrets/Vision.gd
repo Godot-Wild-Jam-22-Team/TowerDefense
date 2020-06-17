@@ -10,11 +10,15 @@ var enemy_pos := Vector2(0,0)
 var has_focus := false
 
 func _on_Vision_body_entered(body: KinematicBody2D) -> void:
+	if body.is_in_group("player"):
+		return
 	if(has_focus == false):
 		has_focus = true
 		enemy = body
 
 func _on_Vision_body_exited(body: KinematicBody2D) -> void:
+	if body.is_in_group("player"):
+		return
 	has_focus = false
 	emit_signal('exited')
 

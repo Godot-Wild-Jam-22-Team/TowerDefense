@@ -29,6 +29,8 @@ texture = ExtResource( 5 )
 position = Vector2( 32, 0 )
 
 [node name="Guntimer" type="Timer" parent="." index="5"]
+
+[node name="RotationTween" type="Tween" parent="." index="9"]
 [connection signal="exited" from="Vision" to="." method="_on_Vision_exited"]
 [connection signal="updated" from="Vision" to="." method="_on_Vision_updated"]
 [connection signal="timeout" from="Guntimer" to="." method="_on_Guntimer_timeout"]

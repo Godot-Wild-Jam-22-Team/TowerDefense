@@ -15,6 +15,8 @@ var flashing_colors := [Color.white, Color.crimson]
 
 var price := 500.0 #set to 0 after first placement
 
+var default_rotation : float = 0.0
+
 func _ready() -> void:
 	pass #do not mess with process as it may be used by children
 
@@ -30,6 +32,7 @@ func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void
 			self._grabbed = true
 		elif event.is_action_pressed("secondary_click"):
 			rotation_degrees += 90
+			default_rotation = rotation
 	
 
 func _process(_delta: float) -> void:
