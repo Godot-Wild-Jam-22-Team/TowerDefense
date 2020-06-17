@@ -12,6 +12,9 @@ export (int, 3, 20) var left_wave_count := 3
 enum State {WAVE, MARKET}
 var current_state = State.MARKET setget set_state
 
+var enemy_count := 0
+export (int, 1, 10) var wave_group := 5
+
 func _ready() -> void:
 	wallet.intialize(1000.0)
 	marketplace.connect("instance_item", self, "drag_defense")
@@ -52,16 +55,18 @@ func set_state(new_state) -> void:
 
 # FIGHT SCENE
 
-func _start_wave(enemies_count: int = 1) -> void:
+func _start_wave() -> void:
 	randomize()
 	left_wave_count -= 1
+	var enemies_count = (3-left_wave_count) * wave_group
 	var base_position = $Base.global_position
 	for i in enemies_count:
+		enemy_count += 1
 		var new_enemy : Foe = enemy_scene.instance()
 		$Enemies.add_child(new_enemy)
 		var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
 		new_enemy.initialize(start_point, base_position)
-		new_enemy.connect("die", self, "check_game")
+		new_enemy.connect("die", self, "_on_enemy_die")
 	
 	pass
 
@@ -71,16 +76,14 @@ func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
 	bullet.start(_position, _direction)
 
 
+
 func check_game() -> void:
-	print("Checking game")
-	if $Enemies.get_child_count() <= 0:
+	if enemy_count <= 0:
 		wallet.add_amount(1500)
 		if left_wave_count <= 0:
 			gameover()
 		else:
 			self.current_state = State.MARKET
-	
-	pass
 
 func gameover(message: String = "Gameover") -> void:
 	print("Game Over: %s" % message)
@@ -110,6 +113,9 @@ func drop_defense(defense: Turret, price: float) -> void:
 		return
 	# enable code here(?)
 
+func _on_enemy_die(name:String) -> void:
+	enemy_count -= 1
+	check_game()
 
 func _on_Base_die(name: String) -> void:
 	gameover("You lost!")
