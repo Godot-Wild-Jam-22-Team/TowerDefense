@@ -1,11 +1,44 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://DamageableObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Foes/Foe.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Sprites/robot_run-removebg-preview.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Robot_backup-removebg-preview.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 72.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ), Vector2( 2, 1 ), Vector2( 3, 1 ) ]
+}
 
 [node name="Foe" groups=[
 "foes",
@@ -24,9 +57,13 @@ shape = SubResource( 1 )
 rotation = -1.5708
 texture = ExtResource( 3 )
 vframes = 5
-hframes = 7
+hframes = 4
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+playback_speed = 0.4
+anims/Idle = SubResource( 2 )
+anims/Walk = SubResource( 3 )
 [connection signal="area_entered" from="View" to="." method="_on_View_area_entered"]
 [connection signal="area_exited" from="View" to="." method="_on_View_area_exited"]
 [connection signal="body_entered" from="View" to="." method="_on_View_body_entered"]

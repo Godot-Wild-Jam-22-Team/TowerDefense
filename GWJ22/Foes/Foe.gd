@@ -86,11 +86,14 @@ func set_current_state(new_state) -> void:
 	
 	match current_state:
 		State.WALK:
+			$AnimationPlayer.play("Walk")
 			set_physics_process(true)
 		State.ATTACK:
+			$AnimationPlayer.play("Idle")
 			print("Switched state to Attack")
 			set_physics_process(true)
 		State.IDLE:
+			$AnimationPlayer.play("Idle")
 			set_physics_process(false)
 		State.DIE:
 			set_physics_process(false)
