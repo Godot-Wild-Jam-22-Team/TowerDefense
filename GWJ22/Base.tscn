@@ -10,7 +10,6 @@ points = PoolVector2Array( -23, -42, -23, 24, -18, 24, -18, 48, 6, 48, 6, 24, 24
 [node name="Base" groups=[
 "player",
 ] instance=ExtResource( 1 )]
-collision_mask = 3
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
