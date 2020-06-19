@@ -64,7 +64,8 @@ func _start_wave() -> void:
 		enemy_count += 1
 		var new_enemy : Foe = enemy_scene.instance()
 		$Enemies.add_child(new_enemy)
-		var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
+		#var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
+		var start_point = Vector2(randi() % (192 - 64 + 1) + 64,0.0)
 		new_enemy.initialize(start_point, base_position)
 		new_enemy.connect("die", self, "_on_enemy_die")
 	
