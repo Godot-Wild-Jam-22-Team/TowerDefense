@@ -43,6 +43,8 @@ tracks/0/keys = {
 [node name="Foe" groups=[
 "foes",
 ] instance=ExtResource( 1 )]
+collision_layer = 2
+collision_mask = 1
 script = ExtResource( 2 )
 
 [node name="View" type="Area2D" parent="." index="1"]
