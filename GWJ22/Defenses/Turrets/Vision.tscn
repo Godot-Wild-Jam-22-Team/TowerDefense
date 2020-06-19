@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Defenses/Turrets/Vision.gd" type="Script" id=1]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, -100, -200, 100, -200 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 208.0
 
 [node name="Vision" type="Area2D"]
 collision_layer = 0

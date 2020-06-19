@@ -14,7 +14,6 @@ gun_cooldown = 2.0
 bullet_scene = ExtResource( 3 )
 
 [node name="Vision" parent="." index="0" instance=ExtResource( 4 )]
-position = Vector2( 32, 0 )
 rotation = 1.5708
 
 [node name="Placeholder" parent="." index="2"]
