@@ -69,8 +69,7 @@ func _start_wave() -> void:
 		new_enemy.initialize(start_point, base_position)
 		new_enemy.connect("die", self, "_on_enemy_die")
 		yield(get_tree().create_timer(2.0), "timeout")
-	
-	pass
+
 
 func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
 	var bullet = bullet_scene.instance()
