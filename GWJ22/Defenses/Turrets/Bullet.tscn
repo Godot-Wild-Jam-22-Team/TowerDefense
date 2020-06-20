@@ -15,7 +15,6 @@ __meta__ = {
 "_edit_group_": true
 }
 speed = 500
-damage = 2
 lifetime = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

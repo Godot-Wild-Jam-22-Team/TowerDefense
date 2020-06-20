@@ -1,13 +1,16 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GUI/Marketplace.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Wallet.gd" type="Script" id=4]
+[ext_resource path="res://TextureProgress.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Sprites/progress_bar.png" type="Texture" id=6]
 [ext_resource path="res://Foes/Foe.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Base.tscn" type="PackedScene" id=8]
 [ext_resource path="res://GUI/GameoverMenu.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Sprites/tilemap_towerdefnse.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/progress_bar_bg.png" type="Texture" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "tilemap_towerdefnse.png 0"
@@ -354,6 +357,33 @@ visible = false
 
 [node name="Marketplace" parent="MarketLayer" instance=ExtResource( 3 )]
 
+[node name="ProgressBar" type="Control" parent="MarketLayer"]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="MarketLayer/ProgressBar"]
+anchor_right = 0.5
+margin_left = 384.0
+margin_top = 24.0
+margin_right = 128.0
+margin_bottom = 64.0
+texture = ExtResource( 11 )
+
+[node name="TextureProgress" type="TextureProgress" parent="MarketLayer/ProgressBar"]
+margin_left = 384.0
+margin_top = 24.0
+margin_right = 640.0
+margin_bottom = 64.0
+max_value = 10.0
+value = 10.0
+texture_progress = ExtResource( 6 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Wallet" type="Node" parent="."]
 script = ExtResource( 4 )
 
@@ -363,3 +393,4 @@ scale = Vector2( 1.5, 1.5 )
 [connection signal="timeout" from="MarketplaceTimer" to="." method="_on_MarketplaceTimer_timeout"]
 [connection signal="amount_changed" from="Wallet" to="MarketLayer/Marketplace" method="_on_Wallet_amount_changed"]
 [connection signal="die" from="Base" to="." method="_on_Base_die"]
+[connection signal="health_changed" from="Base" to="MarketLayer/ProgressBar/TextureProgress" method="_on_Base_health_changed"]
