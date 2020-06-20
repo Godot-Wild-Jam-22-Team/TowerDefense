@@ -43,6 +43,7 @@ tracks/0/keys = {
 [node name="Foe" groups=[
 "foes",
 ] instance=ExtResource( 1 )]
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="View" type="Area2D" parent="." index="1"]
@@ -64,6 +65,8 @@ frame = 7
 playback_speed = 0.4
 anims/Idle = SubResource( 2 )
 anims/Walk = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="." index="4"]
 [connection signal="area_entered" from="View" to="." method="_on_View_area_entered"]
 [connection signal="area_exited" from="View" to="." method="_on_View_area_exited"]
 [connection signal="body_entered" from="View" to="." method="_on_View_body_entered"]

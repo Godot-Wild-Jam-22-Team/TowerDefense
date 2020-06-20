@@ -7,6 +7,9 @@ var current_state = State.IDLE setget set_current_state
 
 onready var animation_player := $AnimationPlayer
 
+var flashing_colors := [Color.white, Color.crimson]
+var flash_count_down := 10
+
 # Movement
 export (float, 50.0, 200.0) var speed := 100.0
 var velocity := Vector2.ZERO
@@ -68,9 +71,8 @@ func _physics_process(_delta: float) -> void:
 # bullets should implement an attack method too when touching an area in foe group
 
 func attack(target: DamageableObject) -> void:
-	#bounce animation
-	target.take_damage(ATTACK_POWER)
-	pass
+	_start_flash()
+
 
 
 func die():
@@ -112,6 +114,26 @@ func _on_View_area_exited(area: Area2D) -> void:
 		if targets.size() <= 0:
 			self.current_state = State.WALK
 
+func _start_flash():
+	if flash_count_down <= 0:
+		targets[0].take_damage(ATTACK_POWER)
+		die()
+	var time = 1 / 10 - flash_count_down
+	flash_count_down -= 1
+	$Tween.interpolate_property(
+		$Sprite, #$Sprite,
+		"modulate",
+		flashing_colors[0], 
+		flashing_colors[1],
+		time,
+		Tween.TRANS_QUAD,
+		Tween.EASE_IN_OUT)
+	$Tween.start()
+
+func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
+	if key == ":modulate": #flashing color
+		flashing_colors.invert()
+		_start_flash()
 
 #Base
 func _on_View_body_entered(body: Node) -> void:
