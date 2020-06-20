@@ -64,7 +64,8 @@ func _start_wave() -> void:
 		enemy_count += 1
 		var new_enemy : Foe = enemy_scene.instance()
 		$Enemies.add_child(new_enemy)
-		var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
+		#var start_point = Vector2(randf() * 100.0 + 150.0, 0.0)
+		var start_point = Vector2(randi() % (192 - 64 + 1) + 64,0.0)
 		new_enemy.initialize(start_point, base_position)
 		new_enemy.connect("die", self, "_on_enemy_die")
 	
@@ -97,7 +98,10 @@ func gameover(message: String = "Gameover") -> void:
 # MARKET RELATED PHASE
 
 func _on_MarketplaceTimer_timeout() -> void:
-	self.current_state = State.WAVE #no more money (test)
+	if enemy_count == 0:
+		$PauseScreen/StartWave.visible = true
+	#print(enemy_count)
+	#self.current_state = State.WAVE #no more money (test)
 
 func drag_defense(item_scene: PackedScene) -> void:
 	var new_defense : DraggableObject = item_scene.instance()
@@ -119,3 +123,8 @@ func _on_enemy_die(name:String) -> void:
 
 func _on_Base_die(name: String) -> void:
 	gameover("You lost!")
+
+
+func _on_StartWave_pressed() -> void:
+	$PauseScreen/StartWave.visible=false
+	self.current_state = State.WAVE #no more money (test)
