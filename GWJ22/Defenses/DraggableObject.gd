@@ -9,7 +9,7 @@ var start_position := Vector2.ZERO #used in case of cancel purchase animation
 var previous_position := Vector2.ZERO
 
 var _grabbed := false setget _set_grabbed
-var _droppable := true setget _set_droppable
+var _droppable := true setget _set_droppable,  _get_droppable
 
 var flashing_colors := [Color.white, Color.crimson]
 
@@ -48,7 +48,7 @@ func _set_grabbed(value: bool) -> void:
 		previous_position = global_position
 		raise()
 	else:
-		if _droppable:
+		if self._droppable:
 			$DropSound.play()
 			var payment = price if previous_position == start_position else 0.0
 			#print("Pay %s" % payment)
@@ -91,6 +91,9 @@ func _set_droppable(value: bool) -> void:
 		_reset_flash()
 	else:
 		_start_flash()
+
+func _get_droppable() -> bool:
+	return _droppable
 
 func _reset_flash() -> void:
 	$Tween.stop_all()
