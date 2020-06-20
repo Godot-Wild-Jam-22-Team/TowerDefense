@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Sprites/Robot_backup-removebg-preview.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 72.0
+radius = 40.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
@@ -43,6 +43,7 @@ tracks/0/keys = {
 [node name="Foe" groups=[
 "foes",
 ] instance=ExtResource( 1 )]
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="View" type="Area2D" parent="." index="1"]
@@ -50,7 +51,6 @@ rotation = -1.5708
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="View" index="0"]
-position = Vector2( 0, 40 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="2"]
@@ -64,6 +64,8 @@ frame = 7
 playback_speed = 0.4
 anims/Idle = SubResource( 2 )
 anims/Walk = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="." index="4"]
 [connection signal="area_entered" from="View" to="." method="_on_View_area_entered"]
 [connection signal="area_exited" from="View" to="." method="_on_View_area_exited"]
 [connection signal="body_entered" from="View" to="." method="_on_View_body_entered"]

@@ -4,33 +4,39 @@
 [ext_resource path="res://Defenses/DraggableObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Defenses/Turrets/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Defenses/Turrets/Vision.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Sprites/turret.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Turrets again.png" type="Texture" id=5]
 
 [node name="Turret" groups=[
 "player",
 ] instance=ExtResource( 2 )]
+position = Vector2( 448, 313.25 )
+collision_mask = 3
 script = ExtResource( 1 )
 gun_cooldown = 2.0
 bullet_scene = ExtResource( 3 )
 
 [node name="Vision" parent="." index="0" instance=ExtResource( 4 )]
-position = Vector2( 32, 0 )
 rotation = 1.5708
+collision_mask = 3
 
 [node name="Placeholder" parent="." index="2"]
 visible = false
 
 [node name="Sprite" parent="." index="3"]
-position = Vector2( 16, 0 )
-scale = Vector2( 2, 2 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 5 )
+vframes = 3
+hframes = 3
 
-[node name="Position2D" type="Position2D" parent="." index="4"]
+[node name="Guntimer" type="Timer" parent="." index="4"]
+wait_time = 0.5
+
+[node name="RotationTween" type="Tween" parent="." index="8"]
+
+[node name="Cannon" type="Position2D" parent="." index="9"]
+
+[node name="Emitter" type="Position2D" parent="Cannon" index="0"]
 position = Vector2( 32, 0 )
-
-[node name="Guntimer" type="Timer" parent="." index="5"]
-
-[node name="RotationTween" type="Tween" parent="." index="9"]
 [connection signal="exited" from="Vision" to="." method="_on_Vision_exited"]
 [connection signal="updated" from="Vision" to="." method="_on_Vision_updated"]
 [connection signal="timeout" from="Guntimer" to="." method="_on_Guntimer_timeout"]

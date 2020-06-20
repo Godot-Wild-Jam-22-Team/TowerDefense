@@ -15,6 +15,10 @@ var focused_enemy_position = Vector2()
 func _ready() -> void:
 	$Guntimer.wait_time = gun_cooldown
 
+#func _input(event: InputEvent) -> void:
+#	if event.is_action_pressed("ui_right"):
+#		$Sprite.frame = ($Sprite.frame + 1) % 8
+
 func _on_Guntimer_timeout() -> void:
 	can_shoot = true
 
@@ -23,7 +27,7 @@ func shoot() -> void:
 		can_shoot = false
 		$Guntimer.start()
 		var direction = Vector2(1,0).rotated(global_rotation)
-		emit_signal('shoot', bullet_scene, $Position2D.global_position, direction)
+		emit_signal('shoot', bullet_scene, $Cannon/Emitter.global_position, direction)
 
 func _on_Vision_updated(_position: Vector2) -> void:
 	has_focused_enemy = true
@@ -52,3 +56,10 @@ func set_health(value) -> void:
 	if health <= 0:
 		print("Turret dead")
 		queue_free() #and any animation
+
+#func modified_look_at(position: Vector2) -> void:
+#	$Cannon.look_at(position)
+#	var degrees = $Cannon.rotation_degrees
+#	var idx = (degrees -22.5) / 22.5
+#
+#	$Sprite.frame = idx

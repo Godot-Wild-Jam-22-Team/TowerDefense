@@ -94,12 +94,12 @@ func _set_droppable(value: bool) -> void:
 
 func _reset_flash() -> void:
 	$Tween.stop_all()
-	$Placeholder.modulate = Color.white
+	#$Placeholder.modulate = Color.white
 	$Sprite.modulate = Color.white
 
 func _start_flash():
 	$Tween.interpolate_property(
-		$Placeholder, #$Sprite,
+		$Sprite, #$Sprite,
 		"modulate",
 		flashing_colors[0], 
 		flashing_colors[1],
