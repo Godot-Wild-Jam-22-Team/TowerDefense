@@ -68,8 +68,8 @@ func _start_wave() -> void:
 		var start_point = Vector2(randi() % (192 - 64 + 1) + 64,0.0)
 		new_enemy.initialize(start_point, base_position)
 		new_enemy.connect("die", self, "_on_enemy_die")
-	
-	pass
+		yield(get_tree().create_timer(2.0), "timeout")
+
 
 func _on_Defense_shoot(bullet_scene, _position: Vector2, _direction: Vector2):
 	var bullet = bullet_scene.instance()
