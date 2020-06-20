@@ -100,7 +100,7 @@ func gameover(message: String = "Gameover") -> void:
 func _on_MarketplaceTimer_timeout() -> void:
 	if enemy_count == 0:
 		$PauseScreen/StartWave.visible = true
-	print(enemy_count)
+	#print(enemy_count)
 	#self.current_state = State.WAVE #no more money (test)
 
 func drag_defense(item_scene: PackedScene) -> void:
