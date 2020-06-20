@@ -24,6 +24,10 @@ func buy_item(item_scene: PackedScene) -> void:
 	emit_signal("instance_item", item_scene)
 	pass
 
+func _on_Wallet_amount_changed(value) -> void:
+	$MoneyLabel.text = str(value) + "$"
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass

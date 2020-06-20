@@ -5,7 +5,6 @@
 [ext_resource path="res://Defenses/Turrets/Turret.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GUI/Marketplace.gd" type="Script" id=5]
 
-
 [node name="Marketplace" type="Control"]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -18,11 +17,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="MoneyLabel" type="Label" parent="."]
 anchor_right = 1.0
 margin_top = 32.0
 margin_bottom = 54.0
-text = "Market"
+text = "1000$"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
