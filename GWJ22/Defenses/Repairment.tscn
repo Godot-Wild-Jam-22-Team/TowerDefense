@@ -1,7 +1,16 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Defenses/DraggableObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Repairment.gd" type="Script" id=2]
+[ext_resource path="res://Defenses/Repairment.gd" type="Script" id=2]
 
 [node name="Repairment" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="." index="0"]
+polygon = PoolVector2Array( -32, 8.00012, -32, -7.99988, -8.00012, -32, 7.99988, -32, 32, -8.00012, 32, 7.99988, 8.00012, 32, -7.99988, 32 )
+
+[node name="Placeholder" parent="." index="1"]
+polygon = PoolVector2Array( -32, 8.00012, -32, -7.99988, -8.00003, -7.99997, -8.00012, -32, 7.99988, -32, 7.99997, -8.00003, 32, -8.00012, 32, 7.99988, 8.00003, 7.99997, 8.00012, 32, -7.99988, 32, -7.99997, 8.00003 )
+
+[node name="Sprite" parent="." index="2"]
+visible = false

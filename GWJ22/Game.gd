@@ -82,13 +82,13 @@ func check_game() -> void:
 	if enemy_count <= 0:
 		wallet.add_amount(1500)
 		if left_wave_count <= 0:
-			gameover()
+			gameover("You won!")
 		else:
 			self.current_state = State.MARKET
 
 func gameover(message: String = "Gameover") -> void:
-	print("Game Over: %s" % message)
-	gameover_menu.open()
+	#print("Game Over: %s" % message)
+	gameover_menu.open(message)
 	set_process_input(false)
 	get_tree().paused = true
 	yield(gameover_menu, "closed")
