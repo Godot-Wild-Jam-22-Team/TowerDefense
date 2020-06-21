@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/robot-walk.wav-d9fe1809c67722156cf5704a7485cf39.sample"
+
+[deps]
+
+source_file="res://Assets/Sound/robot-walk.wav"
+dest_files=[ "res://.import/robot-walk.wav-d9fe1809c67722156cf5704a7485cf39.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

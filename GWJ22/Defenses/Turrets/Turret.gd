@@ -28,6 +28,7 @@ func shoot() -> void:
 		$Guntimer.start()
 		var direction = Vector2(1,0).rotated(global_rotation)
 		emit_signal('shoot', bullet_scene, $Cannon/Emitter.global_position, direction)
+		$ShotSound.play()
 
 func _on_Vision_updated(_position: Vector2) -> void:
 	has_focused_enemy = true

@@ -115,7 +115,7 @@ func drop_defense(defense: Turret, price: float) -> void:
 	if not wallet.remove_amount(price):
 		defense.cancel_purchase()
 		return
-	# enable code here(?)
+	$PurchaseSound.play()
 
 func _on_enemy_die(name:String) -> void:
 	enemy_count -= 1

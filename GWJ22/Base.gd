@@ -6,5 +6,9 @@ func _ready() -> void:
 
 
 func die() -> void:
-	#add animation explosion and call parent at the end, also send info about gameover
+	$DieSound.play()
+	
+
+
+func _on_DieSound_finished() -> void:
 	.die()

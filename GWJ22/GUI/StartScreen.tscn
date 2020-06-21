@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Fonts/Title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Themes/Base_theme.tres" type="Theme" id=2]
 [ext_resource path="res://GUI/StartScreen.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Sound/Main_Menu.wav" type="AudioStream" id=4]
 
 [node name="StartScreen" type="Control"]
 anchor_right = 1.0
@@ -136,6 +137,11 @@ text = "Dismiss"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -15.0
+autoplay = true
 [connection signal="pressed" from="Buttons/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="Buttons/CreditButton" to="." method="_toggle_credits_panel"]
 [connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
