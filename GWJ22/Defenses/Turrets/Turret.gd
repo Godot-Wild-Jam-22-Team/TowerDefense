@@ -30,12 +30,13 @@ func shoot() -> void:
 		emit_signal('shoot', bullet_scene, $Cannon/Emitter.global_position, direction)
 		$ShotSound.play()
 
-func _on_Vision_updated(_position: Vector2) -> void:
-	has_focused_enemy = true
-	focused_enemy_position = _position
-	look_at(focused_enemy_position)
+func _on_Vision_updated(position: Vector2) -> void:
+	if position:
+		has_focused_enemy = true
+		focused_enemy_position = position
+		look_at(focused_enemy_position)
 
-func _on_Vision_exited() -> void:
+func _on_Vision_reset() -> void:
 	has_focused_enemy = false
 	$RotationTween.interpolate_property(self, "rotation", rotation, default_rotation, 1.5, Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT)
 	$RotationTween.start()
